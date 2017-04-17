@@ -1,0 +1,14 @@
+<dune_plugin_update_info>
+    <schema>2</schema>
+    <name>animevost.org</name>
+    <plugin_version_descriptor>
+        <version_index>1</version_index>
+        <version>v0.1.0</version>
+        <beta>yes</beta>
+        <critical>yes</critical>
+        <url>https://github.com/UrsusArctosUa/dunehd-animevost-org/blob/master/build/dune_plugin.tgz</url>
+        <md5>88838e88063386f5c7a16afb21e5d4b9</md5>
+        <size>350855</size>
+        <caption>Animevost.ORG</caption>
+    </plugin_version_descriptor>
+</dune_plugin_update_info>

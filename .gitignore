@@ -1,0 +1,6 @@
+/php/dune_plugin.xml
+
+/make/*.conf
+/make/*.lock
+!/make/example.conf
+/make/build/

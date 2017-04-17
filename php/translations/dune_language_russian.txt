@@ -1,0 +1,4 @@
+title_application_error = Ошибка приложения
+msg_plugin_init_failed = Плеер не может запустить приложение.
+msg_unhandled_plugin_error = Произошла ошибка. Приложение будет закрыто.
+vod_favorites_label = Избранное

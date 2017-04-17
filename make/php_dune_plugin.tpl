@@ -1,0 +1,35 @@
+<dune_plugin>
+    <name>%name%</name>
+    <caption>%caption%</caption>
+    <type>php</type>
+    <params>
+        <program>plugin.php</program>
+    </params>
+    <entry_points>
+        <entry_point>
+            <parent_media_url>root://video</parent_media_url>
+            <media_url>vod_list</media_url>
+            <caption>Animevost.ORG</caption>
+            <icon_url>plugin_file://icons/logo.aai</icon_url>
+            <actions>
+                <key_enter>
+                    <type>plugin_open_folder</type>
+                </key_enter>
+            </actions>
+            <ip_address_required>yes</ip_address_required>
+            <show_cookie_name>show_vod</show_cookie_name>
+            <show_by_default>yes</show_by_default>
+        </entry_point>
+    </entry_points>
+    <auto_resume>
+        <enable>yes</enable>
+    </auto_resume>
+    <version_index>%version_index%</version_index>
+    <version>%version%</version>
+    <check_update>
+        <schema>2</schema>
+        <url>%update_url%update_info.xml</url>
+        <timeout>0</timeout>
+        <required>no</required>
+    </check_update>
+</dune_plugin>
