@@ -1,6 +1,6 @@
 #!/bin/sh
-SCRIPT=$(readlink -f "$0")
-SCRIPTPATH=$(dirname "$SCRIPT")
+MAKEPATH=$(dirname $(readlink -f "$0"))
+CODEPATH=$MAKEPATH/../src
 
 envirenment=dev
 plugin_version=`git describe 2>/dev/null || echo 'v0.0.1'`
@@ -19,51 +19,53 @@ done
 echo "use envirenment $envirenment"
 echo "use version marker $plugin_version"
 
-if [ -f $SCRIPTPATH/${envirenment}.conf ]
+if [ -f $MAKEPATH/${envirenment}.conf ]
 then
-    . $SCRIPTPATH/${envirenment}.conf
+    . $MAKEPATH/${envirenment}.conf
 else
     (>&2 echo "fatal: file ${envirenment}.conf not found")
     exit 1
 fi
 
 old_version_index=0
-if [ -f $SCRIPTPATH/${envirenment}.lock ]
+if [ -f $MAKEPATH/${envirenment}.lock ]
 then
-    old_version_index=`cat $SCRIPTPATH/${envirenment}.lock`
+    old_version_index=`cat $MAKEPATH/${envirenment}.lock`
 fi
 plugin_version_index=` expr $old_version_index + 1 `
-` echo $plugin_version_index > $SCRIPTPATH/${envirenment}.lock`
+` echo $plugin_version_index > $MAKEPATH/${envirenment}.lock`
 
 sed -e "s;%name%;$plugin_name;g" -e "s;%caption%;$plugin_caption;g" \
- -e "s;%type%;$plugin_type;g" -e "s;%version_index%;$plugin_version_index;g" \
- -e "s;%version%;$plugin_version;g"  -e "s;%update_url%;$plugin_update_url;g" \
- $SCRIPTPATH/${plugin_type}_dune_plugin.tpl > $SCRIPTPATH/../$plugin_type/dune_plugin.xml
+ -e "s;%version_index%;$plugin_version_index;g" -e "s;%version%;$plugin_version;g" \
+ -e "s;%update_url%;$plugin_update_url;g" \
+ $CODEPATH/tpl/dune_plugin.tpl > $CODEPATH/plugin/dune_plugin.xml
 
-if [ ! -d $SCRIPTPATH/build/${envirenment}/plugin/$plugin_type/ ]
+if [ ! -d $MAKEPATH/build/${envirenment}/plugin/ ]
 then
-    mkdir -p $SCRIPTPATH/build/${envirenment}/plugin/$plugin_type/
+    mkdir -p $MAKEPATH/build/${envirenment}/plugin/
 fi
 
-cd $SCRIPTPATH/../$plugin_type/
-file_zip=$SCRIPTPATH/build/${envirenment}/plugin/$plugin_type/dune_plugin.zip
+CURDIR=$PWD
+cd ${CODEPATH}/plugin/
+file_zip=$MAKEPATH/build/${envirenment}/plugin/dune_plugin.zip
 zip -qr $file_zip *
+cd $CURDIR
 
-file_tar=$SCRIPTPATH/build/${envirenment}/plugin/$plugin_type/dune_plugin.tgz
-tar -czf $file_tar -C $SCRIPTPATH/../$plugin_type/ ` ls $SCRIPTPATH/../$plugin_type/ `
+file_tar=$MAKEPATH/build/${envirenment}/plugin/dune_plugin.tgz
+tar -czf $file_tar -C ${CODEPATH}/plugin ` ls ${CODEPATH}/plugin `
 
-plugin_tgz_md5=`md5sum -b $SCRIPTPATH/build/${envirenment}/plugin/$plugin_type/dune_plugin.tgz | cut -d' ' -f1`
-plugin_size=`du -sb $SCRIPTPATH/../$plugin_type/ | cut -f1`
+plugin_tgz_md5=`md5sum -b $MAKEPATH/build/${envirenment}/plugin/dune_plugin.tgz | cut -d' ' -f1`
+plugin_size=`du -sb ${CODEPATH}/plugin | cut -f1`
 
-file_xml=$SCRIPTPATH/build/${envirenment}/plugin/$plugin_type/update_info.xml
+file_xml=$MAKEPATH/build/${envirenment}/plugin/update_info.xml
 sed -e "s;%name%;$plugin_name;g" -e "s;%caption%;$plugin_caption;g" \
  -e "s;%version_index%;$plugin_version_index;g" -e "s;%version%;$plugin_version;g" \
  -e "s;%update_url%;$plugin_update_url;g" -e "s;%tgz_md5%;$plugin_tgz_md5;g" \
  -e "s;%size%;$plugin_size;g" -e "s;%critical%;$plugin_update_critical;g" \
- $SCRIPTPATH/${plugin_type}_update_info.tpl > $file_xml
+ $CODEPATH/tpl/update_info.tpl > $file_xml
 
 deploy_files="$file_zip $file_tar $file_xml"
 echo "Prepared files: $deploy_files"
-build_dir=$SCRIPTPATH/../build/
+build_dir=$MAKEPATH/../build/
 echo $plugin_deploy_command | sed -e "s;%deploy_files%;$deploy_files;g" -e "s;%build_dir%;$build_dir;g" | xargs xargs
 echo "Ok"

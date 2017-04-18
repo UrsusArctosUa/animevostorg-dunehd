@@ -8,8 +8,8 @@
     <entry_points>
         <entry_point>
             <parent_media_url>root://video</parent_media_url>
-            <media_url>vod_list</media_url>
-            <caption>Animevost.ORG</caption>
+            <media_url>vod_latest</media_url>
+            <caption>%caption%</caption>
             <icon_url>plugin_file://icons/logo.aai</icon_url>
             <actions>
                 <key_enter>
