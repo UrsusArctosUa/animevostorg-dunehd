@@ -5,13 +5,13 @@ CODEPATH=$MAKEPATH/../src
 envirenment=dev
 plugin_version=`git describe 2>/dev/null || echo 'v0.0.1'`
 
-while getopts ":e:v:" opt; do
+while getopts "e:v:i:" opt; do
   case $opt in
     e) envirenment="$OPTARG"
     ;;
     v) plugin_version="$OPTARG"
     ;;
-    \?) echo "Invalid option -$OPTARG" >&2
+    i) plugin_version_index="$OPTARG"
     ;;
   esac
 done
@@ -27,13 +27,22 @@ else
     exit 1
 fi
 
-old_version_index=0
-if [ -f $MAKEPATH/${envirenment}.lock ]
-then
-    old_version_index=`cat $MAKEPATH/${envirenment}.lock`
+if [ -z ${plugin_version_index+x} ] && command -v wget >/dev/null 2>&1; then
+    echo "${plugin_update_url}update_info.xml"
+    old_info_content=`wget -O - ${plugin_update_url}update_info.xml`
+    echo $old_info_content
+    old_version_index=`echo $old_info_content | sed -n -e 's/^.*<version_index>\([0-9]*\)<\/version_index>.*$/\1/p'`
+    plugin_version_index=`expr $old_version_index + 1`
 fi
-plugin_version_index=` expr $old_version_index + 1 `
-` echo $plugin_version_index > $MAKEPATH/${envirenment}.lock`
+if [ -z ${plugin_version_index+x} ] && command -v curl >/dev/null 2>&1; then
+    old_info_content=`curl ${plugin_update_url}update_info.xml`
+    old_version_index=`echo $old_info_content | sed -n -e 's/^.*<version_index>\([0-9]*\)<\/version_index>.*$/\1/p'`
+    plugin_version_index=`expr $old_version_index + 1`
+fi
+if [ -z ${plugin_version_index+x} ]; then
+    echo >&2 "fatal: version index via -i must be specified or wget or curl installed"
+    exit 1
+fi
 
 sed -e "s;%name%;$plugin_name;g" -e "s;%caption%;$plugin_caption;g" \
  -e "s;%version_index%;$plugin_version_index;g" -e "s;%version%;$plugin_version;g" \
