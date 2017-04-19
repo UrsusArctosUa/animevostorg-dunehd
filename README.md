@@ -26,6 +26,4 @@ DuneHD AnimeVost.org plugin
 Convention
 ==========
 
-**Семантическое версионирование** [1]
-
-[1]: http://semver.org/lang/ru/spec/v2.0.0.html
+[**Семантическое версионирование**](http://semver.org/lang/ru/spec/v2.0.0.html)
