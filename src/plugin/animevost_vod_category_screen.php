@@ -13,13 +13,9 @@ class AnimevostVodCategoryScreen extends VodListScreen {
         return MediaURL::encode($arr);
     }
 
-    ///////////////////////////////////////////////////////////////////////
-
     public function __construct(Vod $vod) {
-        parent::__construct($vod);
+        parent::__construct(self::ID, $vod);
     }
-
-    ///////////////////////////////////////////////////////////////////////
 
     private function get_page_for_index($index, $page_size) {
         return intval($index / $page_size) + 1;

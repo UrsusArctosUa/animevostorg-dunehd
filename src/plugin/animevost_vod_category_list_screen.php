@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////////////////
 
 require_once 'animevost_vod_category.php';
-require_once 'animevost_vod_list_screen.php';
+require_once 'animevost_vod_category_screen.php';
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -77,7 +77,7 @@ class AnimevostVodCategoryListScreen extends AbstractPreloadedRegularScreen {
         foreach ($category_list as $c) {
             $is_movie_list = is_null($c->get_sub_categories());
             $media_url_str = $is_movie_list ?
-                    AnimevostVodListScreen::get_media_url_str($c->get_id()) :
+                    AnimevostVodCategoryScreen::get_media_url_str($c->get_id()) :
                     self::get_media_url_str($c->get_id());
 
             $items[] = array

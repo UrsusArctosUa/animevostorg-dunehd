@@ -8,17 +8,14 @@ class AnimevostVodLatestScreen extends VodListScreen {
     const ID = 'vod_latest';
 
     public static function get_media_url_str() {
+        hd_print('AnimevostVodListScreen::get_media_url_str self::ID: ' . self::ID);
         $arr['screen_id']   = self::ID;
         return MediaURL::encode($arr);
     }
 
-    ///////////////////////////////////////////////////////////////////////
-
     public function __construct(Vod $vod) {
-        parent::__construct($vod);
+        parent::__construct(self::ID, $vod);
     }
-
-    ///////////////////////////////////////////////////////////////////////
 
     private function get_page_for_index($index, $page_size) {
         return intval($index / $page_size) + 1;

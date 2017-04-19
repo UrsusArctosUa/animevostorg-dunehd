@@ -4,17 +4,13 @@
 require_once 'lib/abstract_regular_screen.php';
 
 abstract class VodListScreen extends AbstractRegularScreen
-    implements UserInputHandler
-{
-    const ID = 'vod_list';
-
-    ///////////////////////////////////////////////////////////////////////
+    implements UserInputHandler {
 
     private $vod;
 
-    protected function __construct(Vod $vod)
+    protected function __construct($id, Vod $vod)
     {
-        parent::__construct(self::ID);
+        parent::__construct($id);
 
         $this->vod = $vod;
 
@@ -58,7 +54,7 @@ abstract class VodListScreen extends AbstractRegularScreen
     }
 
     public function get_handler_id()
-    { return self::ID; }
+    { return $this->get_id(); }
 
     public function handle_user_input(&$user_input, &$plugin_cookies)
     {
