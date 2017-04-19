@@ -2,3 +2,4 @@ title_application_error = Application error
 msg_plugin_init_failed = Application can not start.
 msg_unhandled_plugin_error = Application caused an error and will be closed.
 vod_favorites_label = Favorites
+vod_latest_label = Latest

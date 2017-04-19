@@ -3,12 +3,12 @@
     <caption>%caption%</caption>
     <type>php</type>
     <params>
-        <program>plugin.php</program>
+        <program>animevost_plugin.php</program>
     </params>
     <entry_points>
         <entry_point>
             <parent_media_url>root://video</parent_media_url>
-            <media_url>vod_latest</media_url>
+            <media_url>vod</media_url>
             <caption>%caption%</caption>
             <icon_url>plugin_file://icons/animevost.png</icon_url>
             <badge_icon_url>plugin_file://icons/default.png</badge_icon_url>

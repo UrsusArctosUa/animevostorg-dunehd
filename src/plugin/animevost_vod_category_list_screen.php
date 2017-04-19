@@ -60,20 +60,6 @@ class AnimevostVodCategoryListScreen extends AbstractPreloadedRegularScreen {
 
         $items = array();
 
-        if (AnimevostConfig::VOD_FAVORITES_SUPPORTED &&
-                !isset($media_url->category_id)) {
-            $items[] = array
-                (
-                PluginRegularFolderItem::media_url        => VodFavoritesScreen::get_media_url_str(),
-                PluginRegularFolderItem::caption          => T::t('vod_favorites_label'),
-                PluginRegularFolderItem::view_item_params => array
-                    (
-                    ViewItemParams::icon_path               => AnimevostConfig::FAV_MOVIES_CATEGORY_ICON_PATH,
-                    ViewItemParams::item_detailed_icon_path => AnimevostConfig::FAV_MOVIES_CATEGORY_ICON_PATH,
-                )
-            );
-        }
-
         foreach ($category_list as $c) {
             $is_movie_list = is_null($c->get_sub_categories());
             $media_url_str = $is_movie_list ?

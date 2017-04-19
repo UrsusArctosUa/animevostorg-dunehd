@@ -8,7 +8,6 @@ class AnimevostVodLatestScreen extends VodListScreen {
     const ID = 'vod_latest';
 
     public static function get_media_url_str() {
-        hd_print('AnimevostVodListScreen::get_media_url_str self::ID: ' . self::ID);
         $arr['screen_id']   = self::ID;
         return MediaURL::encode($arr);
     }
@@ -36,7 +35,6 @@ class AnimevostVodLatestScreen extends VodListScreen {
         $context    = stream_context_create($options);
         $rawHtml    = file_get_contents($url = sprintf(AnimevostConfig::MOVIE_LIST_URL_FORMAT,
                 $this->get_page_for_index($from_ndx, 10)), null, $context);
-        hd_print('AnimevostVodListScreen::get_short_movie_range $url: ' . $url);
 //        $rawHtml    = HD::http_get_document(sprintf(AnimevostConfig::MOVIE_LIST_URL_FORMAT,
 //                $this->get_page_for_index($from_ndx, 10)));
         $html       = str_get_html($rawHtml);
@@ -53,7 +51,6 @@ class AnimevostVodLatestScreen extends VodListScreen {
         foreach ($html->find('div#dle-content div.shortstory') as $element) {
             $link = explode('/', $element->find('div.shortstoryHead a', 0)->href);
             $id = end($link);
-            hd_print('AnimevostVodListScreen::get_short_movie_range $id: ' . $id);
             $name = $element->find('div.shortstoryHead a', 0)->plaintext;
             $poster_url = $element->find('img.imgRadius', 0)->src;
             $movies[] = new ShortMovie(
