@@ -28,14 +28,12 @@ else
 fi
 
 if [ -z ${plugin_version_index+x} ] && command -v wget >/dev/null 2>&1; then
-    echo "${plugin_update_url}update_info.xml"
-    old_info_content=`wget -O - ${plugin_update_url}update_info.xml`
-    echo $old_info_content
+    old_info_content=`wget -O - ${plugin_update_url}update_info.xml 2>/dev/null`
     old_version_index=`echo $old_info_content | sed -n -e 's/^.*<version_index>\([0-9]*\)<\/version_index>.*$/\1/p'`
     plugin_version_index=`expr $old_version_index + 1`
 fi
 if [ -z ${plugin_version_index+x} ] && command -v curl >/dev/null 2>&1; then
-    old_info_content=`curl ${plugin_update_url}update_info.xml`
+    old_info_content=`curl ${plugin_update_url}update_info.xml 2>/dev/null`
     old_version_index=`echo $old_info_content | sed -n -e 's/^.*<version_index>\([0-9]*\)<\/version_index>.*$/\1/p'`
     plugin_version_index=`expr $old_version_index + 1`
 fi
@@ -43,6 +41,8 @@ if [ -z ${plugin_version_index+x} ]; then
     echo >&2 "fatal: version index via -i must be specified or wget or curl installed"
     exit 1
 fi
+
+echo "use version index $plugin_version_index"
 
 sed -e "s;%name%;$plugin_name;g" -e "s;%caption%;$plugin_caption;g" \
  -e "s;%version_index%;$plugin_version_index;g" -e "s;%version%;$plugin_version;g" \

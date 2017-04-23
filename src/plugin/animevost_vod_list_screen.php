@@ -3,12 +3,14 @@
 require_once 'lib/vod/vod_list_screen.php';
 require_once 'simple_html_dom.php';
 
-class AnimevostVodLatestScreen extends VodListScreen {
+class AnimevostVodListScreen extends VodListScreen {
 
-    const ID = 'vod_latest';
+    const ID = 'vod_list';
 
-    public static function get_media_url_str() {
+    public static function get_media_url_str($param_string = '', $param_value = null) {
         $arr['screen_id']   = self::ID;
+        $arr['param_string']   = $param_string;
+        $arr['param_value']   = $param_value;
         return MediaURL::encode($arr);
     }
 
@@ -33,10 +35,11 @@ class AnimevostVodLatestScreen extends VodListScreen {
             )
         );
         $context    = stream_context_create($options);
-        $rawHtml    = file_get_contents($url = sprintf(AnimevostConfig::MOVIE_LIST_URL_FORMAT,
-                $this->get_page_for_index($from_ndx, 10)), null, $context);
-//        $rawHtml    = HD::http_get_document(sprintf(AnimevostConfig::MOVIE_LIST_URL_FORMAT,
-//                $this->get_page_for_index($from_ndx, 10)));
+        $param = sprintf($media_url->param_string, $media_url->param_value);
+        $rawHtml    = file_get_contents(sprintf(AnimevostConfig::VOD_MOVIE_LIST_URL_FORMAT,
+                $param, $this->get_page_for_index($from_ndx, 10)), null, $context);
+//        $rawHtml    = HD::http_get_document(sprintf(AnimevostConfig::VOD_MOVIE_LIST_URL_FORMAT,
+//                $param, $this->get_page_for_index($from_ndx, 10)));
         $html       = str_get_html($rawHtml);
         $total_pages = 0;
         foreach ($html->find('td.block_4 a') as $element) {
