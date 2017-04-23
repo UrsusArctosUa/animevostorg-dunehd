@@ -2,13 +2,13 @@
     <schema>2</schema>
     <name>animevost.org</name>
     <plugin_version_descriptor>
-        <version_index>1</version_index>
-        <version>v0.1.0</version>
+        <version_index>2</version_index>
+        <version>v0.1.0-5-gcd102bc</version>
         <beta>yes</beta>
         <critical>yes</critical>
-        <url>https://github.com/UrsusArctosUa/dunehd-animevost-org/blob/master/build/dune_plugin.tgz</url>
-        <md5>88838e88063386f5c7a16afb21e5d4b9</md5>
-        <size>350855</size>
-        <caption>Animevost.ORG</caption>
+        <url>https://raw.githubusercontent.com/UrsusArctosUa/dunehd-animevost-org/master/build/dune_plugin.tgz</url>
+        <md5>50c32e2585268c4a2254c77ac6d23f1e</md5>
+        <size>344016</size>
+        <caption>AnimeVost.org</caption>
     </plugin_version_descriptor>
 </dune_plugin_update_info>

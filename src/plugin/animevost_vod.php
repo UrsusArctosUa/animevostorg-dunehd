@@ -39,8 +39,8 @@ class AnimevostVod extends AbstractVod {
             )
         );
         $context = stream_context_create($options);
-        $rawHtml = file_get_contents(sprintf(AnimevostConfig::MOVIE_INFO_URL_FORMAT, $movie_id), null, $context);
-//        $rawHtml = HD::http_get_document(sprintf(AnimevostConfig::MOVIE_INFO_URL_FORMAT, $movie_id));
+        $rawHtml = file_get_contents(sprintf(AnimevostConfig::VOD_MOVIE_INFO_URL_FORMAT, $movie_id), null, $context);
+//        $rawHtml = HD::http_get_document(sprintf(AnimevostConfig::VOD_MOVIE_INFO_URL_FORMAT, $movie_id));
         if (is_null($rawHtml))
             throw new Exception('Can not fetch movie info');
         $html    = str_get_html($rawHtml);

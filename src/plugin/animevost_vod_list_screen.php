@@ -5,19 +5,18 @@ require_once 'simple_html_dom.php';
 
 class AnimevostVodListScreen extends VodListScreen {
 
-    public static function get_media_url_str($cat_id) {
+    const ID = 'vod_list';
+
+    public static function get_media_url_str($param_string = '', $param_value = null) {
         $arr['screen_id']   = self::ID;
-        $arr['category_id'] = $cat_id;
+        $arr['param_string']   = $param_string;
+        $arr['param_value']   = $param_value;
         return MediaURL::encode($arr);
     }
 
-    ///////////////////////////////////////////////////////////////////////
-
     public function __construct(Vod $vod) {
-        parent::__construct($vod);
+        parent::__construct(self::ID, $vod);
     }
-
-    ///////////////////////////////////////////////////////////////////////
 
     private function get_page_for_index($index, $page_size) {
         return intval($index / $page_size) + 1;
@@ -36,11 +35,11 @@ class AnimevostVodListScreen extends VodListScreen {
             )
         );
         $context    = stream_context_create($options);
-        $rawHtml    = file_get_contents($url = sprintf(AnimevostConfig::MOVIE_LIST_URL_FORMAT,
-                $this->get_page_for_index($from_ndx, 10)), null, $context);
-        hd_print('AnimevostVodListScreen::get_short_movie_range $url: ' . $url);
-//        $rawHtml    = HD::http_get_document(sprintf(AnimevostConfig::MOVIE_LIST_URL_FORMAT,
-//                $this->get_page_for_index($from_ndx, 10)));
+        $param = sprintf($media_url->param_string, $media_url->param_value);
+        $rawHtml    = file_get_contents(sprintf(AnimevostConfig::VOD_MOVIE_LIST_URL_FORMAT,
+                $param, $this->get_page_for_index($from_ndx, 10)), null, $context);
+//        $rawHtml    = HD::http_get_document(sprintf(AnimevostConfig::VOD_MOVIE_LIST_URL_FORMAT,
+//                $param, $this->get_page_for_index($from_ndx, 10)));
         $html       = str_get_html($rawHtml);
         $total_pages = 0;
         foreach ($html->find('td.block_4 a') as $element) {
@@ -55,7 +54,6 @@ class AnimevostVodListScreen extends VodListScreen {
         foreach ($html->find('div#dle-content div.shortstory') as $element) {
             $link = explode('/', $element->find('div.shortstoryHead a', 0)->href);
             $id = end($link);
-            hd_print('AnimevostVodListScreen::get_short_movie_range $id: ' . $id);
             $name = $element->find('div.shortstoryHead a', 0)->plaintext;
             $poster_url = $element->find('img.imgRadius', 0)->src;
             $movies[] = new ShortMovie(

@@ -3,21 +3,22 @@
     <caption>%caption%</caption>
     <type>php</type>
     <params>
-        <program>plugin.php</program>
+        <program>animevost_plugin.php</program>
     </params>
     <entry_points>
         <entry_point>
             <parent_media_url>root://video</parent_media_url>
-            <media_url>vod_list</media_url>
-            <caption>Animevost.ORG</caption>
-            <icon_url>plugin_file://icons/logo.aai</icon_url>
+            <media_url>vod</media_url>
+            <caption>%caption%</caption>
+            <icon_url>plugin_file://icons/animevost.png</icon_url>
+            <badge_icon_url>plugin_file://icons/default.png</badge_icon_url>
             <actions>
                 <key_enter>
                     <type>plugin_open_folder</type>
                 </key_enter>
             </actions>
             <ip_address_required>yes</ip_address_required>
-            <show_cookie_name>show_vod</show_cookie_name>
+            <show_cookie_name>main_icon</show_cookie_name>
             <show_by_default>yes</show_by_default>
         </entry_point>
     </entry_points>

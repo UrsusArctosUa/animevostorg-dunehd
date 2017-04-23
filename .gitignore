@@ -1,4 +1,4 @@
-/php/dune_plugin.xml
+/src/plugin/dune_plugin.xml
 
 /make/*.conf
 /make/*.lock
