@@ -2,3 +2,6 @@ title_application_error = Ошибка приложения
 msg_plugin_init_failed = Плеер не может запустить приложение.
 msg_unhandled_plugin_error = Произошла ошибка. Приложение будет закрыто.
 vod_favorites_label = Избранное
+vod_latest_label = Новое
+vod_genre_list_label = Жанры
+vod_year_list_label = Годы
