@@ -6,7 +6,7 @@
         <version>%version%</version>
         <beta>yes</beta>
         <critical>%critical%</critical>
-        <url>%update_url%dune_plugin.tgz</url>
+        <url>%update_url%dune_plugin_%version_index%.tgz</url>
         <md5>%tgz_md5%</md5>
         <size>%size%</size>
         <caption>%caption%</caption>

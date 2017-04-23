@@ -53,6 +53,7 @@ if [ ! -d $MAKEPATH/build/${envirenment}/plugin/ ]
 then
     mkdir -p $MAKEPATH/build/${envirenment}/plugin/
 fi
+rm -rf $MAKEPATH/build/${envirenment}/plugin/*
 
 CURDIR=$PWD
 cd ${CODEPATH}/plugin/
@@ -60,10 +61,10 @@ file_zip=$MAKEPATH/build/${envirenment}/plugin/dune_plugin.zip
 zip -qr $file_zip *
 cd $CURDIR
 
-file_tar=$MAKEPATH/build/${envirenment}/plugin/dune_plugin.tgz
+file_tar=$MAKEPATH/build/${envirenment}/plugin/dune_plugin_${plugin_version_index}.tgz
 tar -czf $file_tar -C ${CODEPATH}/plugin ` ls ${CODEPATH}/plugin `
 
-plugin_tgz_md5=`md5sum -b $MAKEPATH/build/${envirenment}/plugin/dune_plugin.tgz | cut -d' ' -f1`
+plugin_tgz_md5=`md5sum -b $MAKEPATH/build/${envirenment}/plugin/dune_plugin_${plugin_version_index}.tgz | cut -d' ' -f1`
 plugin_size=`du -sb ${CODEPATH}/plugin | cut -f1`
 
 file_xml=$MAKEPATH/build/${envirenment}/plugin/update_info.xml
@@ -76,5 +77,6 @@ sed -e "s;%name%;$plugin_name;g" -e "s;%caption%;$plugin_caption;g" \
 deploy_files="$file_zip $file_tar $file_xml"
 echo "Prepared files: $deploy_files"
 build_dir=$MAKEPATH/../build/
-echo $plugin_deploy_command | sed -e "s;%deploy_files%;$deploy_files;g" -e "s;%build_dir%;$build_dir;g" | xargs xargs
+deploy_script=`echo $plugin_deploy_command | sed -e "s;%deploy_files%;$deploy_files;g" -e "s;%build_dir%;$build_dir;g"`
+eval $deploy_script
 echo "Ok"
