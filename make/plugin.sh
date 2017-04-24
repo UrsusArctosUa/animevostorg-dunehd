@@ -1,6 +1,7 @@
 #!/bin/sh
 MAKEPATH=$(dirname $(readlink -f "$0"))
 CODEPATH=$MAKEPATH/../src
+REPOPATH=$MAKEPATH/../
 
 envirenment=dev
 plugin_version=`git describe 2>/dev/null || echo 'v0.0.1'`
@@ -61,10 +62,10 @@ file_zip=$MAKEPATH/build/${envirenment}/plugin/dune_plugin.zip
 zip -qr $file_zip *
 cd $CURDIR
 
-file_tar=$MAKEPATH/build/${envirenment}/plugin/dune_plugin_${plugin_version_index}.tgz
+file_tar=$MAKEPATH/build/${envirenment}/plugin/dune_plugin.tgz
 tar -czf $file_tar -C ${CODEPATH}/plugin ` ls ${CODEPATH}/plugin `
 
-plugin_tgz_md5=`md5sum -b $MAKEPATH/build/${envirenment}/plugin/dune_plugin_${plugin_version_index}.tgz | cut -d' ' -f1`
+plugin_tgz_md5=`md5sum -b $MAKEPATH/build/${envirenment}/plugin/dune_plugin.tgz | cut -d' ' -f1`
 plugin_size=`du -sb ${CODEPATH}/plugin | cut -f1`
 
 file_xml=$MAKEPATH/build/${envirenment}/plugin/update_info.xml
@@ -73,10 +74,10 @@ sed -e "s;%name%;$plugin_name;g" -e "s;%caption%;$plugin_caption;g" \
  -e "s;%update_url%;$plugin_update_url;g" -e "s;%tgz_md5%;$plugin_tgz_md5;g" \
  -e "s;%size%;$plugin_size;g" -e "s;%critical%;$plugin_update_critical;g" \
  $CODEPATH/tpl/update_info.tpl > $file_xml
-
+cp $file_zip $REPOPATH
 deploy_files="$file_zip $file_tar $file_xml"
 echo "Prepared files: $deploy_files"
-build_dir=$MAKEPATH/../build/
-deploy_script=`echo $plugin_deploy_command | sed -e "s;%deploy_files%;$deploy_files;g" -e "s;%build_dir%;$build_dir;g"`
+deploy_script=`echo $plugin_deploy_command | sed -e "s;%deploy_files%;$deploy_files;g"`
+echo $deploy_script
 eval $deploy_script
 echo "Ok"
