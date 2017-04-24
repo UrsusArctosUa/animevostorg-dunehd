@@ -78,6 +78,5 @@ cp $file_zip $REPOPATH
 deploy_files="$file_zip $file_tar $file_xml"
 echo "Prepared files: $deploy_files"
 deploy_script=`echo $plugin_deploy_command | sed -e "s;%deploy_files%;$deploy_files;g"`
-echo $deploy_script
 eval $deploy_script
 echo "Ok"
