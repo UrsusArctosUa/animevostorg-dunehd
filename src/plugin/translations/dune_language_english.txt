@@ -5,3 +5,5 @@ vod_favorites_label = Favorites
 vod_latest_label = Latest
 vod_genre_list_label = Genres
 vod_year_list_label = Years
+vod_type_list_label = Types
+vod_search_label = Search

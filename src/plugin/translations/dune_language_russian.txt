@@ -5,3 +5,5 @@ vod_favorites_label = Избранное
 vod_latest_label = Новое
 vod_genre_list_label = Жанры
 vod_year_list_label = Годы
+vod_type_list_label = Типы
+vod_search_label = Поиск
