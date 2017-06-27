@@ -28,46 +28,54 @@ class AnimevostVodScreen extends AbstractPreloadedRegularScreen {
                 PluginRegularFolderItem::caption          => T::t('vod_favorites_label'),
                 PluginRegularFolderItem::view_item_params => array
                     (
-                    ViewItemParams::icon_path               => 'missing://',
+                    ViewItemParams::icon_path => 'missing://',
 //                    ViewItemParams::icon_path               => 'plugin_file://icons/fav.png',
 //                    ViewItemParams::item_detailed_icon_path => 'plugin_file://icons/fav.png',
                 )
             );
         }
 
-        $items[] = array
+        $items[]    = array
             (
             PluginRegularFolderItem::media_url        => AnimevostVodListScreen::get_media_url_str(),
             PluginRegularFolderItem::caption          => T::t('vod_latest_label'),
             PluginRegularFolderItem::view_item_params => array
                 (
-                ViewItemParams::icon_path               => 'missing://',
+                ViewItemParams::icon_path => 'missing://',
 //                ViewItemParams::icon_path               => 'plugin_file://icons/latest.png',
 //                ViewItemParams::item_detailed_icon_path => 'plugin_file://icons/latest.png'
             )
         );
-        $items[] = array
-            (
-            PluginRegularFolderItem::media_url        => AnimevostVodGenreListScreen::get_media_url_str(),
-            PluginRegularFolderItem::caption          => T::t('vod_genre_list_label'),
-            PluginRegularFolderItem::view_item_params => array
+        $categories = array(
+            'zhanr' => T::t('vod_genre_list_label'),
+            'god' => T::t('vod_year_list_label'),
+            'tip' => T::t('vod_type_list_label')
+        );
+//        hd_print('AnimevostVodScreen::get_all_folder_items $categories: ' . var_export($categories, true));
+        foreach ($categories as $name => $title) {
+            $items[] = array
                 (
-                ViewItemParams::icon_path               => 'missing://',
+                PluginRegularFolderItem::media_url        => AnimevostVodCategoryListScreen::get_media_url_str($name),
+                PluginRegularFolderItem::caption          => $title,
+                PluginRegularFolderItem::view_item_params => array
+                    (
+                    ViewItemParams::icon_path => 'missing://',
 //                ViewItemParams::icon_path               => 'plugin_file://icons/latest.png',
 //                ViewItemParams::item_detailed_icon_path => 'plugin_file://icons/latest.png'
-            )
-        );
-        $items[] = array
-            (
-            PluginRegularFolderItem::media_url        => AnimevostVodYearListScreen::get_media_url_str(),
-            PluginRegularFolderItem::caption          => T::t('vod_year_list_label'),
-            PluginRegularFolderItem::view_item_params => array
+                )
+            );
+        }
+            $items[] = array
                 (
-                ViewItemParams::icon_path               => 'missing://',
+                PluginRegularFolderItem::media_url        => AnimevostVodSearchScreen::get_media_url_str(),
+                PluginRegularFolderItem::caption          => T::t('vod_search_label'),
+                PluginRegularFolderItem::view_item_params => array
+                    (
+                    ViewItemParams::icon_path => 'missing://',
 //                ViewItemParams::icon_path               => 'plugin_file://icons/latest.png',
 //                ViewItemParams::item_detailed_icon_path => 'plugin_file://icons/latest.png'
-            )
-        );
+                )
+            );
         return $items;
     }
 

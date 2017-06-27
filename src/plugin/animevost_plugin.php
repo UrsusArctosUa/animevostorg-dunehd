@@ -16,8 +16,9 @@ require_once 'animevost_config.php';
 require_once 'animevost_vod.php';
 require_once 'animevost_vod_screen.php';
 require_once 'animevost_vod_list_screen.php';
-require_once 'animevost_vod_genre_list_screen.php';
-require_once 'animevost_vod_year_list_screen.php';
+require_once 'animevost_vod_category_list_screen.php';
+require_once 'animevost_vod_search_screen.php';
+require_once 'animevost_vod_search_list_screen.php';
 require_once 'animevost_setup_screen.php';
 
 ///////////////////////////////////////////////////////////////////////////
@@ -29,9 +30,10 @@ class AnimevostPlugin extends DefaultDunePlugin {
 
         $this->add_screen(new AnimevostVodScreen());
         $this->add_screen(new VodFavoritesScreen($this->vod));
-        $this->add_screen(new AnimevostVodGenreListScreen());
-        $this->add_screen(new AnimevostVodYearListScreen());
+        $this->add_screen(new AnimevostVodCategoryListScreen());
         $this->add_screen(new AnimevostVodListScreen($this->vod));
+        $this->add_screen(new AnimevostVodSearchScreen($this->vod));
+        $this->add_screen(new AnimevostVodSearchListScreen($this->vod));
         $this->add_screen(new VodMovieScreen($this->vod));
         $this->add_screen(new VodSeriesListScreen($this->vod));
         $this->add_screen(new AnimevostSetupScreen());

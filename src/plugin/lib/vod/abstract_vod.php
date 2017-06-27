@@ -62,7 +62,7 @@ abstract class AbstractVod implements Vod
     }
 
     ///////////////////////////////////////////////////////////////////////
-    
+
     public function is_favorites_supported()
     {
         return $this->favorites_supported;
@@ -118,7 +118,7 @@ abstract class AbstractVod implements Vod
     }
 
     ///////////////////////////////////////////////////////////////////////
-    
+
     public function ensure_movie_loaded($movie_id, &$plugin_cookies)
     {
         if (!isset($movie_id))

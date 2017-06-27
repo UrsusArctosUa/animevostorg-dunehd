@@ -4,12 +4,14 @@
 
 class AnimevostConfig {
 
-    const VOD_MOVIE_PAGE_SUPPORTED = true;
-    const VOD_FAVORITES_SUPPORTED  = true;
-    const VOD_MOVIE_LIST_URL_FORMAT    = 'http://animevost.org%s/page/%s/';
-    const VOD_MOVIE_INFO_URL_FORMAT    = 'http://animevost.org/tip/tv/%s';
-    const VOD_GENRE_LIST_URL_FORMAT    = 'http://animevost.org/';
-    const VOD_YEAR_LIST_URL_FORMAT    = 'http://animevost.org/';
+    const VOD_MOVIE_PAGE_SUPPORTED       = true;
+    const VOD_FAVORITES_SUPPORTED        = true;
+    const VOD_MOVIE_LIST_URL_FORMAT      = 'http://animevost.org%s/page/%s/';
+    const VOD_MOVIE_INFO_URL_FORMAT      = 'http://animevost.org/tip/tv/%s';
+    const VOD_MOVIE_SERIES_URL_FORMAT    = 'https://api.animevost.org/animevost/api/v0.2/playlist';
+    const VOD_CATEGORIES_LIST_URL_FORMAT = 'http://animevost.org/';
+    const VOD_SEARCH_URL_FORMAT          = 'http://animevost.org/index.php?do=search';
+    const USERAGENT                      = "Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:10";
 
     ///////////////////////////////////////////////////////////////////////
     // Folder views.
@@ -20,10 +22,10 @@ class AnimevostConfig {
                 PluginRegularFolderView::async_icon_loading          => true,
                 PluginRegularFolderView::view_params                 => array
                     (
-                    ViewParams::num_cols           => 5,
-                    ViewParams::num_rows           => 2,
-                    ViewParams::paint_details      => true,
-                    ViewParams::zoom_detailed_icon => true,
+                    ViewParams::num_cols                        => 5,
+                    ViewParams::num_rows                        => 2,
+                    ViewParams::paint_details                   => true,
+                    ViewParams::zoom_detailed_icon              => true,
                     ViewParams::paint_sandwich                  => true,
                     ViewParams::sandwich_base                   => 'gui_skin://special_icons/sandwich_base.aai',
                     ViewParams::sandwich_mask                   => 'cut_icon://{name=sandwich_mask}',
